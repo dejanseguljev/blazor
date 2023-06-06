@@ -1,0 +1,40 @@
+﻿<h3>@Title - v2</h3>
+
+@code {
+    private int _predictions1;
+    private int _predictions2;
+
+    [Parameter]
+    public string? Title { get; set; }
+
+    [Parameter]
+    public string? Team1 { get; set; }
+
+    [Parameter]
+    public string? Team2 { get; set; }
+
+    [Parameter]
+    public int Score1 { get; set; }
+
+    [Parameter]
+    public int Score2 { get; set; }
+
+
+    private void IncreasePrediction1()
+    {
+        _predictions1++;
+    }
+
+    private void IncreasePrediction2()
+    {
+        _predictions2++;
+    }
+}
+
+<div>
+    @Team1 @Score1 <span @onclick="IncreasePrediction1">@_predictions1</span>
+</div>
+
+<div>
+    @Team2 @Score2 <span @onclick="IncreasePrediction2">@_predictions2</span>
+</div>
