@@ -1,0 +1,17 @@
+﻿@using SportsMonitor.Client.Model;
+@inherits EventTrackerBase5
+
+
+<h3>@Event?.Name - v5</h3>
+
+
+@if (Event.Participants.Any())
+{
+    foreach (var participant in Event.Participants)
+    {
+        <div>
+            <span @onclick="() => OnTeamSelected.InvokeAsync(participant.Clone() as EventParticipantModel)">@participant.Name </span> @participant.Score
+        </div>
+    }
+}
+
