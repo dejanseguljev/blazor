@@ -1,5 +1,59 @@
-﻿<h3>EventDashboard5</h3>
+﻿@using SportsMonitor.Client.Model;
+<h3>Games</h3>
 
 @code {
 
+    private List<EventModel> _events = new List<EventModel>()
+    {
+        new EventModel()
+        {
+            Name = "NBA Conference Finals",
+            Status = Enums.EventStatus.Complete,
+            Date = new DateTime(2023, 5, 23, 0, 40, 0, DateTimeKind.Utc),
+            Participants = new List<EventParticipantModel>()
+            {
+                new EventParticipantModel()
+                {
+                    Name = "Los Angeles Lakers",
+                    Score = 111,
+                    Status = EventParticipantStatus.Confirmed
+                },
+                new EventParticipantModel()
+                {
+                    Name = "Denver Nuggets",
+                    Score = 113,
+                    Status = EventParticipantStatus.Confirmed
+                }
+            }
+        },
+        new EventModel()
+        {
+            Name = "NBA Finals",
+            Status = Enums.EventStatus.Complete,
+            Date = new DateTime(2023, 6, 13, 0, 30, 0, DateTimeKind.Utc),
+            Participants = new List<EventParticipantModel>()
+            {
+                new EventParticipantModel()
+                {
+                    Name = "Denver Nuggets",
+                    Score = 94,
+                    Status = EventParticipantStatus.Confirmed
+                },
+                new EventParticipantModel()
+                {
+                    Name = "Miami Heat",
+                    Score = 89,
+                    Status = EventParticipantStatus.Confirmed
+                }
+            }
+        }
+    };
+}
+
+@if (_events != null)
+{
+    foreach (var match in _events)
+    {
+        <EventTracker5 Model="match"></EventTracker5>
+    }
 }

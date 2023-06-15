@@ -5,21 +5,24 @@ namespace SportsMonitor.Client.Core;
 
 public class EventTrackerBase5 : ComponentBase
 {
-    private EventModel? _event;
+    //private EventModel? _model;
 
+
+    //[Parameter]
+    //public EventModel? Model
+    //{
+    //    get
+    //    {
+    //        return _model;
+    //    }
+    //    set
+    //    {
+    //        _model = value != null ? value.Clone() as EventModel : null;
+    //    }
+    //}
 
     [Parameter]
-    public EventModel? Event
-    {
-        get
-        {
-            return _event?.Clone() as EventModel;
-        }
-        set
-        {
-            _event = value != null ? value.Clone() as EventModel : null;
-        }
-    }
+    public EventModel? Model { get; set; }
 
     [Parameter]
     public EventCallback<EventParticipantModel> OnTeamSelected { get; set; }

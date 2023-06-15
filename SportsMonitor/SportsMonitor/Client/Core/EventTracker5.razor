@@ -2,15 +2,26 @@
 @inherits EventTrackerBase5
 
 
-<h3>@Event?.Name - v5</h3>
+<h3>@Model?.Name - v5</h3>
 
+@Model?.Date?.ToShortDateString()
 
-@if (Event.Participants.Any())
+@* @if (Model.Participants.Any())
 {
-    foreach (var participant in Event.Participants)
+    foreach (var participant in Model.Participants)
     {
         <div>
-            <span @onclick="() => OnTeamSelected.InvokeAsync(participant.Clone() as EventParticipantModel)">@participant.Name </span> @participant.Score
+            <span @onclick="() => OnTeamSelected.InvokeAsync(participant.Clone() as EventParticipantModel)">@participant.Name</span> @participant.Score
+        </div>
+    }
+} *@
+
+@if (Model?.Participants?.Any() == true)
+{
+    foreach (var participant in Model.Participants)
+    {
+        <div>
+            <span @onclick="() => OnTeamSelected.InvokeAsync(participant)">@participant.Name</span> @participant.Score
         </div>
     }
 }
