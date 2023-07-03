@@ -2,7 +2,8 @@
 <h3>Games</h3>
 
 @code {
-
+    private EventParticipantModel _activeTeam;
+    private EventModel _activeGame;
     private List<EventModel> _events = new List<EventModel>()
     {
         new EventModel()
@@ -48,12 +49,36 @@
             }
         }
     };
+
+    private void SetActiveGameAndTeam(EventModel game, EventParticipantModel team)
+    {
+        _activeGame = game;
+        _activeTeam = team;
+    }
+
+    public int TotalVotes
+    {
+        get
+        {
+            return _events.Where(x => x.Participants?.Any() == true)
+                .SelectMany(x => x.Participants).Sum(x => x.WinningVotes);
+        }
+    }
 }
+
+<h4>Total votes: @TotalVotes</h4>
+
+<h5>
+    Active game: @_activeGame?.Name
+</h5>
+<h5>
+    Active team: @_activeTeam?.Name
+</h5>
 
 @if (_events != null)
 {
-    foreach (var match in _events)
+    foreach (var game in _events)
     {
-        <EventTracker5 Model="match"></EventTracker5>
+        <EventTracker5 Model="game" OnTeamSelected="(x) => SetActiveGameAndTeam(game, x)"></EventTracker5>
     }
 }
