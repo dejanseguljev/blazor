@@ -1,0 +1,28 @@
+﻿@using SportsMonitor.Client.EventArgs;
+@using SportsMonitor.Client.Model;
+@inherits EventTrackerBase6
+
+<h3>@Model?.Name - v6</h3>
+
+@Model?.Date?.ToShortDateString()
+
+
+@if (Model?.Participants?.Any() == true)
+{
+    foreach (var participant in Model.Participants)
+    {
+        <div>
+            <span @onclick="() => OnParticipantSelected.InvokeAsync(participant)">@participant.Name</span>
+            @participant.Score
+            <span @onclick="() => OnVotesChanged.InvokeAsync(
+                new VotesChangedArgs() {
+                    ParticipantId = participant.Id, 
+                    OldVotes = participant.WinningVotes,
+                    NewVotes = participant.WinningVotes + 1
+                })">
+                @participant.WinningVotes
+            </span>
+        </div>
+    }
+}
+

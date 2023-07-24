@@ -1,0 +1,98 @@
+﻿@using SportsMonitor.Client.EventArgs;
+@using SportsMonitor.Client.Model;
+<h3>Games</h3>
+
+@code {
+    private EventParticipantModel _activeTeam;
+    private EventModel _activeGame;
+    private List<EventModel> _events = new List<EventModel>()
+    {
+        new EventModel()
+        {
+            Name = "NBA Conference Finals",
+            Status = Enums.EventStatus.Complete,
+            Date = new DateTime(2023, 5, 23, 0, 40, 0, DateTimeKind.Utc),
+            Participants = new List<EventParticipantModel>()
+            {
+                new EventParticipantModel()
+                {
+                    Id = Guid.NewGuid(),
+                    Name = "Los Angeles Lakers",
+                    Score = 111,
+                    Status = EventParticipantStatus.Confirmed
+                },
+                new EventParticipantModel()
+                {
+                    Id = Guid.NewGuid(),
+                    Name = "Denver Nuggets",
+                    Score = 113,
+                    Status = EventParticipantStatus.Confirmed
+                }
+            }
+        },
+        new EventModel()
+        {
+            Name = "NBA Finals",
+            Status = Enums.EventStatus.Complete,
+            Date = new DateTime(2023, 6, 13, 0, 30, 0, DateTimeKind.Utc),
+            Participants = new List<EventParticipantModel>()
+            {
+                new EventParticipantModel()
+                {
+                    Id = Guid.NewGuid(),
+                    Name = "Denver Nuggets",
+                    Score = 94,
+                    Status = EventParticipantStatus.Confirmed
+                },
+                new EventParticipantModel()
+                {
+                    Id = Guid.NewGuid(),
+                    Name = "Miami Heat",
+                    Score = 89,
+                    Status = EventParticipantStatus.Confirmed
+                }
+            }
+        }
+    };
+
+    private void SetActiveGameAndTeam(EventModel game, EventParticipantModel team)
+    {
+        _activeGame = game;
+        _activeTeam = team;
+    }
+
+    public int TotalVotes
+    {
+        get
+        {
+            return _events.Where(x => x.Participants?.Any() == true)
+                .SelectMany(x => x.Participants).Sum(x => x.WinningVotes);
+        }
+    }
+
+    private void UpdateVotes(VotesChangedArgs args)
+    {
+        var participant = _events.SelectMany(x => x.Participants)
+            .Where(x => x.Id == args.ParticipantId).FirstOrDefault();
+
+        participant.WinningVotes = args.NewVotes;
+    }
+
+}
+
+<h4>Total votes: @TotalVotes</h4>
+
+<h5>
+    Active game: @_activeGame?.Name
+</h5>
+<h5>
+    Active team: @_activeTeam?.Name
+</h5>
+
+@if (_events != null)
+{
+    foreach (var game in _events)
+    {
+        <EventTracker6 Model="game" OnParticipantSelected="(x) => SetActiveGameAndTeam(game, x)" OnVotesChanged="(x) => UpdateVotes(x)"></EventTracker6>
+    }
+}
