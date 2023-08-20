@@ -1,4 +1,4 @@
-﻿@using SportsMonitor.Client.EventArgs;
+﻿@* @using SportsMonitor.Client.EventArgs;
 @using SportsMonitor.Client.Model;
 <h3>Games</h3>
 
@@ -78,6 +78,18 @@
         participant.WinningVotes = args.NewVotes;
     }
 
+    private void ClearScores()
+    {
+        foreach (var game in _events)
+        {
+            foreach (var participant in game.Participants)
+            {
+                participant.Score = 0.0f;
+                participant.WinningVotes = 0;
+            }
+        }
+    }
+
 }
 
 <h4>Total votes: @TotalVotes</h4>
@@ -91,9 +103,12 @@
 
 @if (_events != null)
 {
+    <button @onclick="ClearScores">Clear</button>
+
     foreach (var game in _events)
     {
         var current = game;
         <EventTracker7 @bind-Model="current" OnParticipantSelected="(x) => SetActiveGameAndTeam(game, x)"></EventTracker7>
     }
 }
+ *@

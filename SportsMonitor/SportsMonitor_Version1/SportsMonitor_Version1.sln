@@ -1,0 +1,31 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.7.33711.374
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SportsMonitor_Version1.Server", "SportsMonitor_Version1\Server\SportsMonitor_Version1.Server.csproj", "{41971322-9DE5-4D55-A61A-39943BF926B4}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SportsMonitor_Version1.Client", "SportsMonitor_Version1\Client\SportsMonitor_Version1.Client.csproj", "{7978D857-BDF9-490D-A4D4-F1FB7754EDE2}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{41971322-9DE5-4D55-A61A-39943BF926B4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{41971322-9DE5-4D55-A61A-39943BF926B4}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{41971322-9DE5-4D55-A61A-39943BF926B4}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{41971322-9DE5-4D55-A61A-39943BF926B4}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7978D857-BDF9-490D-A4D4-F1FB7754EDE2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7978D857-BDF9-490D-A4D4-F1FB7754EDE2}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7978D857-BDF9-490D-A4D4-F1FB7754EDE2}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7978D857-BDF9-490D-A4D4-F1FB7754EDE2}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {35714226-5D45-4354-9387-806A35F0FF6A}
+	EndGlobalSection
+EndGlobal

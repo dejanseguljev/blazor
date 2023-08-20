@@ -1,0 +1,26 @@
+﻿<h3>@Title</h3>
+
+@code {
+    [Parameter]
+    public string? Title { get; set; }
+
+    [Parameter]
+    public string? Team1 { get; set; }
+
+    [Parameter]
+    public string? Team2 { get; set; }
+
+    [Parameter]
+    public int? Score1 { get; set; }
+
+    [Parameter]
+    public int? Score2 { get; set; }
+}
+
+<div>
+    @Team1 @Score1
+</div>
+
+<div>
+    @Team2 @Score2
+</div>
