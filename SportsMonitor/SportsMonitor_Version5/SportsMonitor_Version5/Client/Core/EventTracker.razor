@@ -1,0 +1,19 @@
+﻿@inherits EventTrackerBase
+
+
+<h3>@Model?.Name - v5</h3>
+
+@Model?.Date?.ToShortDateString()
+
+@if (Model?.Participants?.Any() == true)
+{
+    foreach (var participant in Model.Participants)
+    {
+        <div>
+            <span @onclick="() => OnTeamSelected.InvokeAsync(participant)">@participant.Name</span>
+            @participant.Score
+            <span @onclick="() => participant.WinningVotes++">@participant.WinningVotes</span>
+        </div>
+    }
+}
+
