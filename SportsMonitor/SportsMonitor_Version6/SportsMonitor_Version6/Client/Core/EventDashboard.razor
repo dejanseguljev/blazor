@@ -1,5 +1,7 @@
-﻿@* @using SportsMonitor.Client.EventArgs;
-@using SportsMonitor.Client.Model;
+﻿@using SportsMonitor_Version6.Client.Enums;
+@using SportsMonitor_Version6.Client.EventArgs;
+@using SportsMonitor_Version6.Client.Model;
+
 <h3>Games</h3>
 
 @code {
@@ -93,7 +95,6 @@
 {
     foreach (var game in _events)
     {
-        <EventTracker6 Model="game" OnParticipantSelected="(x) => SetActiveGameAndTeam(game, x)" OnVotesChanged="(x) => UpdateVotes(x)"></EventTracker6>
+        <EventTracker Model="game" OnParticipantSelected="(x) => SetActiveGameAndTeam(game, x)" OnVotesChanged="(x) => UpdateVotes(x)"></EventTracker>
     }
 }
- *@

@@ -1,6 +1,5 @@
-﻿@using SportsMonitor.Client.EventArgs;
-@using SportsMonitor.Client.Model;
-@inherits EventTrackerBase6
+﻿@using SportsMonitor_Version6.Client.EventArgs;
+@inherits EventTrackerBase
 
 <h3>@Model?.Name - v6</h3>
 
@@ -16,7 +15,7 @@
             @participant.Score
             <span @onclick="() => OnVotesChanged.InvokeAsync(
                 new VotesChangedArgs() {
-                    ParticipantId = participant.Id, 
+                    ParticipantId = participant.Id,
                     OldVotes = participant.WinningVotes,
                     NewVotes = participant.WinningVotes + 1
                 })">
