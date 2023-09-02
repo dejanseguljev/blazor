@@ -1,15 +1,15 @@
 ﻿using Microsoft.AspNetCore.Components;
-using Microsoft.AspNetCore.Components.Forms;
-using SportsMonitor.Client.Model;
+using SportsMonitor_Version7.Client.EventArgs;
+using SportsMonitor_Version7.Client.Model;
 
-namespace SportsMonitor.Client.Core;
+namespace SportsMonitor_Version7.Client.Core;
 
-public class EventTrackerBase7 : ComponentBase
+public class EventTrackerBase : ComponentBase
 {
     [Parameter]
     public EventModel? Model { get; set; }
 
-    [Parameter] 
+    [Parameter]
     public EventCallback<EventModel> ModelChanged { get; set; }
 
     [Parameter]
@@ -27,3 +27,5 @@ public class EventTrackerBase7 : ComponentBase
         ModelChanged.InvokeAsync();
     }
 }
+
+

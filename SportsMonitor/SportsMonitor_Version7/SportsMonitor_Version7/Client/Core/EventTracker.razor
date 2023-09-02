@@ -1,8 +1,8 @@
-﻿@using SportsMonitor.Client.EventArgs;
-@using SportsMonitor.Client.Model;
-@inherits EventTrackerBase7
+﻿@using SportsMonitor_Version7.Client.EventArgs;
 
-<h3>@Model?.Name - v7</h3>
+@inherits EventTrackerBase
+
+<h3>@Model?.Name</h3>
 
 @Model?.Date?.ToShortDateString()
 
@@ -23,4 +23,6 @@
         </div>
     }
 }
+
+
 

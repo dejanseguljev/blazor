@@ -1,39 +1,6 @@
 ﻿@page "/"
 
-<PageTitle>Home</PageTitle>
+<PageTitle>Sports Monitor</PageTitle>
 
-@*
-
-@code {
-    private string _selectedTeam;
-}
-
-
- <SportsMonitor.Client.Core.EventTracker1 Title="NBA Conference Finals" Team1="Los Angeles Lakers" Team2="Denver Nuggets" Score1="111" Score2="113">
-</SportsMonitor.Client.Core.EventTracker1>
-
-
-<EventTracker2 Title="NBA Conference Finals" Team1="Los Angeles Lakers" Team2="Denver Nuggets" Score1="111" Score2="113">
-</EventTracker2>
-
-<EventTracker3 Title="NBA Conference Finals" Team1="Los Angeles Lakers" Team2="Denver Nuggets" Score1="111" Score2="113">
-</EventTracker3>
-
-<div>Active team: @_selectedTeam</div>
-<EventTracker4 OnTeamSelected="x => _selectedTeam = x" Title="NBA Conference Finals" Team1="Los Angeles Lakers" Team2="Denver Nuggets" Score1="111" Score2="113"></EventTracker4>
-
-
- <EventDashboard5></EventDashboard5>
-
-
-
-  <EventDashboard6></EventDashboard6>
-
-  <EventDashboard7></EventDashboard7>
-
-    *@
-
-
-
-<EventDashboard8></EventDashboard8>
+<EventDashboard></EventDashboard>
 
