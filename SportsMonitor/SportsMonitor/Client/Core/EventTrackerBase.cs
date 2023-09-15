@@ -12,7 +12,7 @@ public class EventTrackerBase: ComponentBase
     public EventCallback<EventModel> ModelChanged { get; set; }
 
     [Parameter]
-    public EventCallback<EventParticipantModel> OnParticipantSelected { get; set; }
+    public EventCallback<EventParticipantModel> ParticipantSelected { get; set; }
 
     protected void IncreaseVotes(EventParticipantModel participant)
     {

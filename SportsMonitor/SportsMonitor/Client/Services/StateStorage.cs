@@ -25,7 +25,7 @@ namespace SportsMonitor.Client.Services
 
         public void OnNext(EventParticipantRecord value)
         {
-            throw new NotImplementedException();
+            // Send change to the API
         }
 
         public IEnumerable<EventModel> GetEvents()

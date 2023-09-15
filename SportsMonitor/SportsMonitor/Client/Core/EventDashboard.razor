@@ -1,5 +1,78 @@
-﻿<h3>EventDashboard</h3>
+﻿@using SportsMonitor.Client.EventArgs;
+@using SportsMonitor.Client.Model;
+@using System.Collections.ObjectModel;
+@using SportsMonitor.Client.Services;
+
+<h3>EventDashboard</h3>
 
 @code {
+    [Inject]
+    public IStateStorage? Storage { get; set; }
 
+    private EventParticipantModel? _activeTeam;
+    private EventModel? _activeGame;
+    private IEnumerable<EventModel>? _events;
+
+    protected override async Task OnInitializedAsync()
+    {
+        await base.OnInitializedAsync();
+        _events = Storage.GetEvents();
+    }
+
+    private void SetActiveGameAndTeam(EventModel game, EventParticipantModel team)
+    {
+        _activeGame = game;
+        _activeTeam = team;
+    }
+
+    public int TotalVotes
+    {
+        get
+        {
+            return _events.Where(x => x.Participants?.Any() == true)
+                .SelectMany(x => x.Participants).Sum(x => x.WinningVotes);
+        }
+    }
+
+    private void UpdateVotes(VotesChangedArgs args)
+    {
+        var participant = _events.SelectMany(x => x.Participants)
+            .Where(x => x.Id == args.ParticipantId).FirstOrDefault();
+
+        participant.WinningVotes = args.NewVotes;
+    }
+
+    private void ClearScores()
+    {
+        foreach (var game in _events)
+        {
+            foreach (var participant in game.Participants)
+            {
+                participant.Score = 0.0f;
+                participant.WinningVotes = 0;
+            }
+        }
+    }
 }
+
+
+<h4>Total votes: @TotalVotes</h4>
+
+<h5>
+    Active game: @_activeGame?.Name
+</h5>
+<h5>
+    Active team: @_activeTeam?.Name
+</h5>
+
+@if (_events != null)
+{
+    <button @onclick="ClearScores">Clear</button>
+
+    foreach (var game in _events)
+    {
+        var current = game;
+        <EventTracker @bind-Model="current" ParticipantSelected="(x) => SetActiveGameAndTeam(game, x)"></EventTracker>
+    }
+}
+

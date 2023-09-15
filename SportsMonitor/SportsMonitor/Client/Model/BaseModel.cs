@@ -5,7 +5,7 @@ namespace SportsMonitor.Client.Model;
 
 public abstract class BaseModel<T>: INotifyPropertyChanged, IObservable<T>
 {
-    private List<IObserver<T>> _observers = new List<IObserver<T>>();
+    private List<IObserver<T>> _observers = new ();
 
     public Guid Id { get; set; }
 
@@ -18,6 +18,7 @@ public abstract class BaseModel<T>: INotifyPropertyChanged, IObservable<T>
             throw new ArgumentNullException("Observer cannot be null.");
         }
 
+        _observers.Add(observer);
         return new Unsubscriber(this, observer);
     }
 
