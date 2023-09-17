@@ -11,7 +11,7 @@
     foreach (var participant in Model.Participants)
     {
         <div>
-            <span @onclick="() => ParticipantSelected.InvokeAsync(participant)">
+            <span @onclick="() => OnParticipantSelected.InvokeAsync(participant)">
                 @participant.Name
             </span>
             <span @onclick="() => IncreaseScore(participant)">

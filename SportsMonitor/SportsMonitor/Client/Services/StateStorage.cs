@@ -4,9 +4,11 @@ using System.Collections.ObjectModel;
 
 namespace SportsMonitor.Client.Services
 {
-    public class StateStorage : IStateStorage, IObserver<EventRecord>, IObserver<EventParticipantRecord>
+    public class StateStorage : IStateStorage, IObserver<EventRecord>, IObserver<EventParticipantRecord>, IDisposable
     {
         private readonly Queue<EventRecord> _eventHistory = new Queue<EventRecord>();
+        private List<EventModel> _events;
+        private List<IDisposable> _subscriptions = new ();
 
         public void OnCompleted()
         {
@@ -30,7 +32,12 @@ namespace SportsMonitor.Client.Services
 
         public IEnumerable<EventModel> GetEvents()
         {
-            var events = new List<EventModel>()
+            if (_events != null )
+            {
+                return _events;
+            };
+
+            _events = new List<EventModel>()
             {
                 new EventModel()
                 {
@@ -80,20 +87,31 @@ namespace SportsMonitor.Client.Services
                 }
             };
 
-            foreach (var item in events)
+            foreach (var item in _events)
             {
-                item.Subscribe(this);
+                _subscriptions.Add(item.Subscribe(this));
 
                 if (item.Participants != null)
                 {
                     foreach (var participant in item.Participants)
                     {
-                        participant.Subscribe(this);
+                        _subscriptions.Add(participant.Subscribe(this));
                     }
                 }
             }
 
-            return events;
+            return _events;
+        }
+
+        public void Dispose()
+        {
+            foreach (var subscription in _subscriptions)
+            {
+                subscription.Dispose();
+            }
+
+            _subscriptions.Clear();
+            _subscriptions = null;
         }
     }
 }
