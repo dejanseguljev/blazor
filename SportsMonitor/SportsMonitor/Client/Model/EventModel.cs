@@ -4,11 +4,17 @@ using System.Collections.ObjectModel;
 
 namespace SportsMonitor.Client.Model;
 
-public class EventModel : BaseModel<EventRecord>
+public class EventModel : BaseModel<EventRecord>, IDisposable
 {
     private string? _name;
     private EventStatus _status;
     private DateTime? _date;
+    private ObservableCollection<EventParticipantModel>? _participants;
+
+    public EventModel()
+    {
+        Participants = new();
+    }
 
     public string? Name
     {
@@ -57,7 +63,40 @@ public class EventModel : BaseModel<EventRecord>
         }
     }
 
-    public ObservableCollection<EventParticipantModel>? Participants { get; set; }
+    public ObservableCollection<EventParticipantModel>? Participants 
+    { 
+        get
+        {
+            return _participants;
+        }
+        set
+        {
+            if (_participants != value)
+            {
+                if (_participants != null)
+                {
+                    _participants.CollectionChanged -= Participants_CollectionChanged;
+                }
+
+                _participants = value;
+
+                if (_participants != null)
+                {
+                    _participants.CollectionChanged += Participants_CollectionChanged;
+                }
+                OnPropertyChanged();
+            }
+        }
+    }
+
+    public void Dispose()
+    {
+        if (_participants != null)
+        {
+            _participants.CollectionChanged -= Participants_CollectionChanged;
+            _participants = null;
+        }
+    }
 
     public override EventRecord GetRecord()
     {
@@ -69,5 +108,10 @@ public class EventModel : BaseModel<EventRecord>
             Participants = new List<EventParticipantRecord>(this.Participants != null ?
                 this.Participants.Select(x => x.GetRecord()) : Array.Empty<EventParticipantRecord>()),
         };
+    }
+
+    private void Participants_CollectionChanged(object? sender, System.Collections.Specialized.NotifyCollectionChangedEventArgs e)
+    {
+        OnPropertyChanged(nameof(Participants));
     }
 }
