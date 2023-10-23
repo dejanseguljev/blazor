@@ -1,0 +1,21 @@
+﻿@inherits EventTrackerBase
+
+<h3>@Model?.Name</h3>
+
+@Model?.Date?.ToShortDateString()
+
+@if (Model?.Participants?.Any() == true)
+{
+    foreach (var participant in Model.Participants)
+    {
+        <div>
+            <span>
+                @participant.Name
+            </span>
+            <span>
+                @participant.Score
+            </span>
+        </div>
+    }
+}
+
